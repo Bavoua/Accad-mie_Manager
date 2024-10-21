@@ -1,0 +1,6 @@
+<h1>je m'appelle {{nom}}</h1>
+<h1 class="alert alert-success mt-3">le factoriel de 10 est {{factorial(10)}}</h1>
+<input type="text" [value] = "factorial(5)" [(ngModel)]="nom">
+<h1 class="alert alert-primary mt-3"> la valeur actuelle est {{nb}}</h1>
+<button (click) = "incrementer()" class="btn btn-outline-success">incrementer</button>
+<app-tableau (sortie)="recuperation($event)" [etudiants]="etudiants"></app-tableau>

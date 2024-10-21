@@ -1,0 +1,93 @@
+<nav class="navbar nabar-light rounded bg-primary" >
+    <div class="container-fluid">
+      <h1 style="color: rgb(212, 225, 236);">Etudiant Manager</h1>
+      <div class="d-flex">
+        <button type="button" (click)="clickAjout()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="openModal()" class="btn btn-success">Ajouter <i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </nav>
+  <table class="table table-bordered mt-3">
+    <tr>
+      <th>Matricule</th>
+      <th>Nom</th>
+      <th>Prenom</th>
+      <th>Telephone</th>
+      <th>Mail</th>
+      <th>Année</th>
+      <th>Action</th>
+    </tr>
+    @for(e of etudiants; track e.code_etud){
+    <tr>
+      <td> {{e.code_etud}} </td>
+      <td> {{e.nom_etud}} </td>
+      <td> {{e.prenom_etud}} </td>
+      <td> {{e.tel_etud}} </td>
+      <td> {{e.mail_etud}} </td>
+      <td> {{e.annee_etud}} </td>
+      <td>
+        <button (click)="clikUpdateEtudiant(e)"  class="btn btn-primary" (click)="openModal()"> <i class="fa fa-pencil" aria-hidden="true"></i></button> &nbsp;
+        <button (click)="deleteEtudiant(e)" onclick="return confirm ('Are you really want to delete this entry ?')"  class="btn btn-danger"> <i class="fa fa-times"></i></button>
+      </td>
+    </tr>
+    }
+  </table>
+  
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title" id="exampleModalLabel">Ajouter un Etudiant</h5>
+        </div>
+        <div class="modal-body">
+          <form [formGroup] = "formValue" method="post" class="mt-3 container">
+            <div class="row mt-2">
+               <div class="col-sm-3">
+                <label for="nom_etud">Nom</label>
+               </div>
+               <div class="col-sm-9">
+               <input type="text" formControlName="nom_etud" id="nom_etud" class="form-control" required placeholder="Exp: NVONDO">
+               </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-sm-3">
+                 <label for="prenom_etud">Prenom</label>
+                </div>
+                <div class="col-sm-9">
+                <input type="text" formControlName="prenom_etud" id="prenom_etud" class="form-control"  placeholder="Exp: Charles">
+                </div>
+             </div>
+             <div class="row mt-2">
+                <div class="col-sm-3">
+                 <label for="tel_etud">Téléphone</label>
+                </div>
+                <div class="col-sm-9">
+                <input type="text" formControlName="tel_etud" id="tel_etud" class="form-control"  placeholder="Exp: 698573262" maxlength="9">
+                </div>
+             </div>
+             <div class="row mt-2">
+                <div class="col-sm-3">
+                 <label for="mail_etud">Email</label>
+                </div>
+                <div class="col-sm-9">
+                <input type="email" formControlName="mail_etud" id="mail_etud" class="form-control"  placeholder="Exp: vvdjvhddv@yahoo.com">
+                </div>
+             </div>
+  
+             <div class="row mt-2">
+                <div class="col-sm-3">
+                 <label for="annee_etud">Année</label>
+                </div>
+                <div class="col-sm-9">
+                <input type="number" formControlName="annee_etud" id="annee_etud"  placeholder="Exp: 2023" class="form-control">
+                </div>
+             </div>
+        </form>
+        </div>
+        <div class="modal-footer mb-3">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal" (click)="fermer()" >Close</button>
+          <button type="button" *ngIf="showAdd" class="btn btn-primary"  (click)="saveEtudiant()" >Add <i class="fa fa-check-circle" aria-hidden="true"></i></button>
+          <button type="button" *ngIf="showUpdate" class="btn btn-primary" (click)="updateEtudiant()">Update <i class="fa fa-upload" aria-hidden="true"></i> </button>
+        </div>
+      </div>
+    </div>
+  </div>

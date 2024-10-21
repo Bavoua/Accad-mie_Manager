@@ -1,0 +1,60 @@
+
+<nav class="navbar nabar-light rounded bg-primary" >
+    <div class="container-fluid">
+      <h1 style="color: rgb(212, 225, 236);">Salle Manager</h1>
+      <div class="d-flex">
+        <button type="button" (click)="clickAjout()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="openModal()" class="btn btn-success">Ajouter <i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </nav>
+  <table class="table table-bordered mt-3">
+    <tr>
+      <th>Numero de salle</th>
+      <th>Nombres de place</th>
+    </tr>
+    @for(s of salles; track s.num_salle){
+    <tr>
+      <td> {{s.num_salle}} </td>
+      <td> {{s.nb_place}} </td>
+      <td>
+        <button (click)="clikUpdateSalle(s)"  class="btn btn-primary" (click)="openModal()"> <i class="fa fa-pencil" aria-hidden="true"></i></button> &nbsp;
+        <button (click)="deleteSalle(s)" onclick="return confirm ('Are you really want to delete this entry ?')"  class="btn btn-danger"> <i class="fa fa-times"></i></button>
+      </td>
+    </tr>
+    }
+  </table>
+  
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title" id="exampleModalLabel">Ajouter une salle</h5>
+        </div>
+        <div class="modal-body">
+          <form [formGroup] = "formValue" method="post" class="mt-3 container">
+            <div class="row mt-2">
+               <div class="col-sm-3">
+                <label for="num_salle">Numero de salle</label>
+               </div>
+               <div class="col-sm-9">
+               <input type="text" formControlName="num_salle" id="num_salle" class="form-control" required placeholder="Exp: CF 250">
+               </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-sm-3">
+                 <label for="nb_place">Nombres de places</label>
+                </div>
+                <div class="col-sm-9">
+                <input type="text" formControlName="nb_place" id="nb_place" class="form-control"  placeholder="Exp: 50">
+                </div>
+             </div>
+        </form>
+        </div>
+        <div class="modal-footer mb-3">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal" (click)="fermer()" >Close</button>
+          <button type="button" *ngIf="showAdd" class="btn btn-primary"  (click)="saveSalle()" >Add <i class="fa fa-check-circle" aria-hidden="true"></i></button>
+          <button type="button" *ngIf="showUpdate" class="btn btn-primary" (click)="updateSalle()">Update <i class="fa fa-upload" aria-hidden="true"></i> </button>
+        </div>
+      </div>
+    </div>
+  </div>

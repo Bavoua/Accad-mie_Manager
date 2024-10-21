@@ -1,0 +1,27 @@
+<table class="table table-border">
+    <tr>
+            <th>Matricule</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Telephone</th>
+            <th>Email</th>
+            <th>Annee</th>
+            <th>Actions</th>
+    </tr>
+    @for(e of etudiants; track e.code_etud)
+    {
+        <tr>
+            <td>{{e.code_etud}}</td>
+            <td>{{e.nom_etud}}</td>
+            <td>{{e.prenom_etud}}</td>
+            <td>{{e.tel_etud}}</td>
+            <td>{{e.mail_etud}}</td>
+            <td>{{e.annee_etud}}</td>
+            <td>
+                <a href="" class="btn-primary"><i class="fa fa-pencil"></i></a>&nbsp;
+                <a href="" class="btn-danger"><i class="fa fa-times"></i></a>
+            </td>
+        </tr>
+    }
+</table>
+<button (click)="declencher()" class="btn btn-success">Sortie</button>

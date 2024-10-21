@@ -1,0 +1,132 @@
+<nav class="navbar nabar-light rounded bg-primary" >
+    <div class="container-fluid">
+      <h1 style="color: rgb(212, 225, 236);">Matiere Manager</h1>
+      <div class="d-flex">
+        <button type="button" (click)="clickAjout()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="openModal()" class="btn btn-success">Ajouter <i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </nav>
+  <table class="table table-bordered mt-3">
+    <tr>
+      <th>Code Matiere</th>
+      <th>Label Matiere</th>
+      <th>Credit Matiere</th>
+      <th>Volume Horaire</th>
+      <th>Numero de salle</th>
+      <th>Action</th>
+    </tr>
+    @for(m of matieres; track m.code_mat){
+    <tr>
+      <td> {{m.code_mat}} </td>
+      <td> {{m.label_mat}} </td>
+      <td> {{m.credit_mat}} </td>
+      <td> {{m.vh_mat}} </td>
+      <td> {{m.num_salle}} </td>
+      <td>
+        <button (click)="clikUpdateMatiere(m)"  class="btn btn-primary" (click)="openModal()"> <i class="fa fa-pencil" aria-hidden="true"></i></button> &nbsp;
+        <button (click)="deleteMatiere(m)" onclick="return confirm ('Are you really want to delete this entry ?')"  class="btn btn-danger"> <i class="fa fa-times"></i></button>
+      </td>
+    </tr>
+    }
+  </table>
+  
+  <div aria-live="polite" aria-atomic="true" class="position-relative">
+    <div class="toast-container position-absolute top-0 end-0 p-3">
+      
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+        <div class="toast-header">
+          <strong class="me-auto">Notification</strong>
+          <small class="text-muted">just now</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          Matière créée avec succès.
+        </div>
+      </div>
+  
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+        <div class="toast-header">
+          <strong class="me-auto">Notification</strong>
+          <small class="text-muted">just now</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          Matière supprimée avec succès.
+        </div>
+      </div>
+  
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+        <div class="toast-header">
+          <strong class="me-auto">Notification</strong>
+          <small class="text-muted">just now</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          Matière modifiée avec succès.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title" id="exampleModalLabel">Ajouter une matiere</h5>
+        </div>
+        <div class="modal-body">
+            <form [formGroup] = "formValue" method="post" class="mt-3 container">
+            <div class="row mt-2">
+               <div class="col-sm-3">
+                <label for="code_mat">Code Matiere</label>
+               </div>
+               <div class="col-sm-9">
+               <input type="text" formControlName="code_mat" id="code_mat" class="form-control" required placeholder="Exp: NVONDO">
+               </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-sm-3">
+                 <label for="label_mat">Label</label>
+                </div>
+                <div class="col-sm-9">
+                <input type="text" formControlName="label_mat" id="label_mat" class="form-control"  placeholder="Exp: Charles">
+                </div>
+             </div>
+             <div class="row mt-2">
+                <div class="col-sm-3">
+                 <label for="credit_mat">Credit Matiere</label>
+                </div>
+                <div class="col-sm-9">
+                <input type="text" formControlName="credit_mat" id="credit_mat" class="form-control"  placeholder="Exp: 6">
+                </div>
+             </div>
+             <div class="row mt-2">
+                <div class="col-sm-3">
+                 <label for="vh_mat">Volume Horaire</label>
+                </div>
+                <div class="col-sm-9">
+                <input type="text" formControlName="vh_mat" id="vh_mat" class="form-control"  placeholder="Exp: 30">
+                </div>
+             </div>
+  
+             <div class="row mt-2">
+                <div class="col-sm-3">
+                 <label for="num_salle">Numero Salle </label>
+                </div>
+                <div class="col-sm-9">
+                    <select formControlName="num_salle" id="num_salle" class="form-select" >
+                        @for(s of salles; track s.num_salle){
+                            <option value="{{s.num_salle}}">{{s.num_salle}} -- {{s.nb_place}}</option>
+                        }
+                    </select>
+                </div>
+             </div>
+        </form>
+        </div>
+        <div class="modal-footer mb-3">
+          <button type="button" class="btn btn-outline-danger" data-dismiss="modal" (click)="fermer()" >Close</button>
+          <button type="button" *ngIf="showAdd" class="btn btn-primary"  (click)="saveMatiere()" >Add <i class="fa fa-check-circle" aria-hidden="true"></i></button>
+          <button type="button" *ngIf="showUpdate" class="btn btn-primary" (click)="updateMatiere()">Update <i class="fa fa-upload" aria-hidden="true"></i> </button>
+        </div>
+      </div>
+    </div>
+  </div>
